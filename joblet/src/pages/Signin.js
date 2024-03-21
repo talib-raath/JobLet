@@ -15,35 +15,43 @@ const Signin = () => {
             </h2>
           </div>
           <form className="mt-8 space-y-6" method='POST'>
-            <div className="rounded-md shadow-sm -space-y-px">
-              <div>
-                <label htmlFor="email-address" className="sr-only">
-                  Email address
-                </label>
+            <div className="rounded-md shadow-sm -space-y-px bg-gray-200 ">
+              <div className="mb-2 p-3">
                 <input
-                  id="email-address"
-                  name="email"
-                  type="email"
-                  autoComplete="email"
+                  id="username"
+                  name="username"
+                  type="text"
+                  autoComplete="username"
                   required
                   className="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-t-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm"
-                  placeholder="Email address"
+                  placeholder="Username"
                 />
               </div>
-              <div>
-                <label htmlFor="password" className="sr-only">
-                  Password
-                </label>
+              <div className="mb-4 p-3">
                 <input
-                  id="password"
-                  name="password"
-                  type="password"
-                  autoComplete="current-password"
+                  id="Password"
+                  name="Password"
+                  type="text"
+                  autoComplete="Password"
                   required
-                  className="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-b-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm"
+                  className="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-t-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm"
                   placeholder="Password"
                 />
               </div>
+
+              <div className="mb-4 p-3">
+                <input
+                  id="ConfirmPassword"
+                  name="ConfirmPassword"
+                  type="text"
+                  autoComplete="ConfirmPassword"
+                  required
+                  className="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-t-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm"
+                  placeholder="ConfirmPassword"
+                />
+              </div>
+
+              
             </div>
 
             <div className="flex items-center justify-between">
@@ -60,13 +68,14 @@ const Signin = () => {
               </div>
 
               <div className="text-sm">
-                <Link to="/forgot-password" className="font-medium text-indigo-600 hover:text-indigo-500">
+                <Link to="/forgot-password" className="font-medium text-indigo-600 hover:text-indigo-500 ">
                   Forgot password?
                 </Link>
               </div>
             </div>
 
             <div>
+              
               <button
                 type="submit"
                 className="w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
@@ -75,16 +84,23 @@ const Signin = () => {
               </button>
             </div>
 
-            <div className="flex items-center justify-center mt-4">
-              <span className="text-sm mr-2">Or sign in with</span>
-              {/* Google Sign-In Button */}
-              <button
-                type="button"
-                className="flex items-center justify-center py-2 px-4 border border-gray-300 rounded-md bg-white hover:bg-gray-100"
-              >
-                <img className="w-4 h-4 mr-2" src={GoogleIcon} alt="Google Icon" />
-                Sign in with Google
-              </button >
+            <div className="mt-4">
+              <div className="flex items-center justify-center">
+                <Link to="/signup" className="font-medium mr-5 mb-2  text-indigo-600 hover:text-indigo-500">
+                  Don't have an account? Sign up
+                </Link>
+              </div>
+              <div className="flex items-center justify-center mt-2">
+                <span className="text-sm mr-2">Or sign in with</span>
+                {/* Google Sign-In Button */}
+                <button
+                  type="button"
+                  className="flex items-center justify-center py-2 px-4 border border-gray-300 rounded-md bg-white hover:bg-gray-100"
+                >
+                  <img className="w-4 h-4 mr-2" src={GoogleIcon} alt="Google Icon" />
+                  Sign in with Google
+                </button>
+              </div>
             </div>
           </form>
         </div>
