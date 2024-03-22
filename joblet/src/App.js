@@ -10,6 +10,7 @@ import Signup from './pages/Signup';
 
 const App = () => {
   return (
+    <>
     <BrowserRouter>
     <Routes>
         <Route path="/" element={<Home/>} />
@@ -19,6 +20,7 @@ const App = () => {
         <Route path="/login" element={<Signup/>} />
       </Routes>
       </BrowserRouter>
+      </>
   );
 };
 

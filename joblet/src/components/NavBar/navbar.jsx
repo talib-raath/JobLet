@@ -39,13 +39,13 @@ const Navbar = () => {
 
         <ul className="flex justify-center flex-grow space-x-4"> {/* Centering the pages */}
           <li>
-            <Link to="/" className="text-white hover:text-gray-300">Feed</Link>
+            <Link to="/" className="text-white hover:text-gray-300 text-lg">Feed</Link>
           </li>
           <li>
-            <Link to="/jobs" className="text-white hover:text-gray-300">Jobs</Link>
+            <Link to="/jobs" className="text-white hover:text-gray-300 text-lg">Jobs</Link>
           </li>
           <li>
-            <button className="text-white hover:text-gray-300 relative focus:outline-none" onClick={toggleNotifications}>
+            <button className="text-white hover:text-gray-300 relative focus:outline-none text-lg" onClick={toggleNotifications}>
               Notifications
               {showNotifications && (
                 <div ref={dropdownRef} className="absolute top-full left-0 mt-2 w-48 bg-white rounded-lg shadow-xl z-10">
