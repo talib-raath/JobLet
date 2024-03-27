@@ -3,18 +3,47 @@ import NavBar from "../components/NavBar/navbar";
 import { Link } from 'react-router-dom';
 import GoogleIcon from '../assets/google.png';
 import { FaEye, FaEyeSlash } from 'react-icons/fa';
+import axios from 'axios';
 
 const Signin = () => {
+
   const [showPassword, setShowPassword] = useState(false);
+  const [formData, setFormData] = useState({
+    username: '',
+    password: ''
+  });
+  const [error, setError] = useState('');
+
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setFormData({
+      ...formData,
+      [name]: value
+    });
+  };
 
   const togglePasswordVisibility = () => {
     setShowPassword(!showPassword);
   };
 
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    try {
+      const response = await axios.post('/api/login', formData);
+      console.log(response.data);
+
+      // Redirect to dashboard upon successful login
+           window.location.href = '/'; // Use window.location.href to redirect
+      
+    } catch (error) {
+      console.error('Error:', error.response.data);
+      setError(error.response.data.message); // Set error message from the backend
+    }
+  };
+
   return (
     <>
       <NavBar />
-    
       <div className="min-h-screen flex items-center justify-center bg-gray-50 py-12 px-4 sm:px-6 lg:px-8">
         <div className="max-w-md w-full space-y-8 bg-beige-400 p-8 rounded-lg shadow-2xl ">
           <div>
@@ -22,7 +51,8 @@ const Signin = () => {
               Sign in to Joblet
             </h2>
           </div>
-          <form className="mt-8 space-y-6" method='POST'>
+          <form className="mt-8 space-y-6" onSubmit={handleSubmit}>
+            {/* Username */}
             <div className="rounded-md shadow-sm -space-y-px bg-gray-200">
               <div className="mb-2 p-3">
                 <input
@@ -31,17 +61,20 @@ const Signin = () => {
                   type="text"
                   autoComplete="username"
                   required
+                  onChange={handleChange}
                   className="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-t-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm"
                   placeholder="Username"
                 />
               </div>
+              {/* Password */}
               <div className="mb-4 p-3 relative">
                 <input
-                  id="Password"
-                  name="Password"
+                  id="password"
+                  name="password"
                   type={showPassword ? "text" : "password"}
-                  autoComplete="Password"
+                  autoComplete="current-password"
                   required
+                  onChange={handleChange}
                   className="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-t-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm pr-10"
                   placeholder="Password"
                 />
@@ -51,6 +84,14 @@ const Signin = () => {
               </div>
             </div>
 
+            {/* Error message */}
+            {error && (
+              <div className="text-red-500 text-sm text-center mb-4">
+                {error}
+              </div>
+            )}
+
+            {/* Remember me and Forgot password */}
             <div className="flex items-center justify-between">
               <div className="flex items-center">
                 <input
@@ -65,12 +106,13 @@ const Signin = () => {
               </div>
 
               <div className="text-sm">
-                <Link to="/forgot-password" className="font-medium text-indigo-600 hover:text-indigo-500 ">
+                <Link to="/forgot-password" className="font-medium text-indigo-600 hover:text-indigo-500">
                   Forgot password?
                 </Link>
               </div>
             </div>
 
+            {/* Sign in button */}
             <div>
               <button
                 type="submit"
@@ -80,9 +122,10 @@ const Signin = () => {
               </button>
             </div>
 
+            {/* Sign up and Google Sign-In */}
             <div className="mt-4">
               <div className="flex items-center justify-center">
-                <Link to="/signup" className="font-medium mr-5 mb-2  text-indigo-600 hover:text-indigo-500">
+                <Link to="/signup" className="font-medium mr-5 text-indigo-600 hover:text-indigo-500">
                   Don't have an account? Sign up
                 </Link>
               </div>
@@ -105,7 +148,6 @@ const Signin = () => {
           </form>
         </div>
       </div>
-    
     </>
   );
 };

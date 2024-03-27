@@ -1,19 +1,50 @@
 import React, { useState } from 'react';
 import NavBar from "../components/NavBar/navbar";
-import { Link } from 'react-router-dom';
+import { Link } from 'react-router-dom'; // Import useHistory
 import GoogleIcon from '../assets/google.png';
-import { FaEye, FaEyeSlash } from 'react-icons/fa'; // Import eye icons
-
+import { FaEye, FaEyeSlash } from 'react-icons/fa';
+import axios from 'axios'; // Import Axios for making HTTP requests
 const Signup = () => {
-  const [showPassword, setShowPassword] = useState(false); // State to toggle password visibility
-  const [showConfirmPassword, setShowConfirmPassword] = useState(false); // State to toggle confirm password visibility
+
+  const [showPassword, setShowPassword] = useState(false);
+  const [showConfirmPassword, setShowConfirmPassword] = useState(false);
+  const [formData, setFormData] = useState({
+    email: '',
+    username: '',
+    password: '',
+    confirmPassword: ''
+  });
+
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setFormData({
+      ...formData,
+      [name]: value
+    });
+  };
 
   const togglePasswordVisibility = () => {
-    setShowPassword(!showPassword );
+    setShowPassword(!showPassword);
   };
 
   const toggleConfirmPasswordVisibility = () => {
     setShowConfirmPassword(!showConfirmPassword);
+  };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    try {
+      // Send form data to backend
+      const response = await axios.post('/api/signup', formData);
+      console.log(response.data); // Log the response from the backend
+
+      // Redirect to the login page upon successful signup
+           window.location.href = '/signin'; // Use window.location.href to redirect
+
+    } catch (error) {
+      console.error('Error:', error);
+      // Handle error scenarios
+    }
   };
 
   return (
@@ -26,7 +57,7 @@ const Signup = () => {
               Create an account
             </h2>
           </div>
-          <form className="mt-8 space-y-6" method='POST'>
+          <form className="mt-8 space-y-6" onSubmit={handleSubmit}>
             <div className="rounded-md shadow-sm -space-y-px bg-gray-200">
               <div className="mb-1 p-2">
                 <label htmlFor="email" className="block text-sm font-medium text-gray-700">
@@ -38,6 +69,7 @@ const Signup = () => {
                   type="email"
                   autoComplete="email"
                   required
+                  onChange={handleChange}
                   className="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-t-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm"
                 />
               </div>
@@ -51,6 +83,7 @@ const Signup = () => {
                   type="text"
                   autoComplete="username"
                   required
+                  onChange={handleChange}
                   className="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm"
                 />
               </div>
@@ -65,6 +98,7 @@ const Signup = () => {
                     type={showPassword ? "text" : "password"}
                     autoComplete="new-password"
                     required
+                    onChange={handleChange}
                     className="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm"
                   />
                   <span onClick={togglePasswordVisibility} className="absolute inset-y-0 right-0 flex items-center pr-3">
@@ -74,15 +108,16 @@ const Signup = () => {
               </div>
               <div className="mb-4 p-3">
                 <label htmlFor="confirm-password" className="block text-sm font-medium text-gray-700">
-                  Confirm Password
+                                   Confirm Password
                 </label>
                 <div className="relative">
                   <input
                     id="confirm-password"
-                    name="confirm-password"
+                    name="confirmPassword"
                     type={showConfirmPassword ? "text" : "password"}
                     autoComplete="confirm-password"
                     required
+                    onChange={handleChange}
                     className="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-b-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm"
                   />
                   <span onClick={toggleConfirmPasswordVisibility} className="absolute inset-y-0 right-0 flex items-center pr-3">
@@ -128,3 +163,4 @@ const Signup = () => {
 };
 
 export default Signup;
+

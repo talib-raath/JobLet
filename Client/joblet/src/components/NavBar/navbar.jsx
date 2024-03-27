@@ -85,10 +85,10 @@ const Navbar = () => {
             <div className="absolute right-0 mt-2 w-48 bg-white rounded-lg shadow-xl z-10">
               <div className="px-4 py-2"> {/* Custom styling for profile dropdown */}
                 <Link  
-                  to="/login" 
+                  to="/signin" 
                   className="block text-gray-600 hover:text-gray-800 py-1"
                 >
-                  Login
+                  Signin
                 </Link>
                 <Link
                   to="/" 
