@@ -31,21 +31,27 @@ const Signup = () => {
     setShowConfirmPassword(!showConfirmPassword);
   };
 
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    try {
-      // Send form data to backend
-      const response = await axios.post('/api/signup', formData);
-      console.log(response.data); // Log the response from the backend
+ const handleSubmit = async (e) => {
+  e.preventDefault();
+  // Check if password and confirm password fields match
+  if (formData.password !== formData.confirmPassword) {
+    console.error("Error: Passwords don't match");
+    // You can set a state variable here to display an error message to the user
+    return; // Prevent form submission if passwords don't match
+  }
+  try {
+    // Send form data to backend
+    const response = await axios.post('/api/signup', formData);
+    console.log(response.data); // Log the response from the backend
 
-      // Redirect to the login page upon successful signup
-           window.location.href = '/signin'; // Use window.location.href to redirect
+    // Redirect to the login page upon successful signup
+    window.location.href = '/signin'; // Use window.location.href to redirect
 
-    } catch (error) {
-      console.error('Error:', error);
-      // Handle error scenarios
-    }
-  };
+  } catch (error) {
+    console.error('Error:', error);
+    // Handle error scenarios
+  }
+};
 
   return (
     <>
