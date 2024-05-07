@@ -4,7 +4,7 @@ const express = require('express');
 const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
 const Signup = require('./models/Signup');
-const bcrypt = require('bcrypt');
+const bcrypt = require('bcryptjs'); // Use bcryptjs instead of bcrypt
 
 const app = express();
 
