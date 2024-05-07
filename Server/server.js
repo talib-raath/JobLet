@@ -26,7 +26,7 @@ app.post('/api/signup', async (req, res) => {
     // Check if the username already exists
     const existingUser = await Signup.findOne({ username });
     if (existingUser) {
-      return res.status(400).json({ message: 'Username already exists' });
+      return res.status(400).json({ message: 'Username already exists. Please try another one.' });
     }
     // Hash the password before saving it to the database
     const hashedPassword = await bcrypt.hash(password, 10);
